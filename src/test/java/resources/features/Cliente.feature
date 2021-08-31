@@ -18,13 +18,14 @@
       E devera persistir o valor "<nome>" no campo "nome" no banco de dados
       E devera persistir o valor "<email>" no campo "email" no banco de dados
       E devera persistir o valor "<salario>" no campo "salario" no banco de dados
+      E devera persistir o valor "<segmento>" no campo "segmento" no banco de dados
 
       Exemplos:
-        | nome     | email                     | salario |
-        | Nacho    | NachodaMassa@hotmail.com  | 4000.02 |
-        | Hulk     | HulkaodaMassa@hotmail.com | 3800.15 |
-        | D. Costa | CostaodaMassa@hotmail.com | 7000.23 |
-        | Cuca     | CuquinhaBrabo@hotmail.com | 1800.45 |
+        | nome     | email                     | salario | segmento   |
+        | Nacho    | NachodaMassa@hotmail.com  | 4000.02 |varejo      |
+        | Hulk     | HulkaodaMassa@hotmail.com | 9800.15 |personnalite|
+        | D. Costa | CostaodaMassa@hotmail.com | 7000.23 |uniclass    |
+        | Cuca     | CuquinhaBrabo@hotmail.com | 1800.45 |varejo      |
 
 
     @ListarClientes @FluxoPrincipal
@@ -52,8 +53,16 @@
       E devera persistir o valor "<nome>" no campo "nome" no banco de dados
       E devera persistir o valor "<email>" no campo "email" no banco de dados
       E devera persistir o valor "<salario>" no campo "salario" no banco de dados
+      E devera persistir o valor "<segmento>" no campo "segmento" no banco de dados
       Exemplos:
-        | nome    | email                      | salario |
-        | Everson | EversondaMassa@hotmail.com | 400.22  |
+        | nome    | email                      | salario  |segmento    |
+        | Everson | EversondaMassa@hotmail.com | 9000.22  |personnalite|
 
 
+    @ListarUmCliente @FluxoPrincipal
+    Cenario: Validar Listagem de um Cliente
+      Dado que eu tenha clientes cadastrados
+      E guardar o valor do id do cliente
+      Quando eu fizer a requisicao Get para listagem de um cliente
+      Entao devera retornar o status code "200"
+      E devera retornar esse cliente cadastrado

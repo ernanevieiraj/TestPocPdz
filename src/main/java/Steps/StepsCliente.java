@@ -74,6 +74,21 @@ public class StepsCliente {
         cliente.setCliente("id_cliente", idCliente);
     }
 
+    @Quando("eu fizer a requisicao Get para listagem de um cliente")
+    public void eu_fizer_a_requisicao_get_para_listagem_de_um_cliente() {
+        RestUtils.get(endpoint+idCliente);
+    }
+
+    @Entao("devera retornar esse cliente cadastrado")
+    public void devera_retornar_esse_cliente_cadastrado() throws IOException, SQLException {
+        connDataBase.Conectar();
+        String query = "select count (*) as contagem from cliente where id_cliente = " + "'" + idCliente + "'";
+        ResultSet rs = connDataBase.stmt.executeQuery(query);
+        rs.next();
+        assert (Integer.parseInt(rs.getString("contagem")) == 1);
+        connDataBase.Desconectar();
+    }
+
     @Entao("devera retornar o status code {string}")
     public void devera_retornar_o_status_code(String statusEsperado) {
         String statusCode = Integer.toString(RestUtils.response.getStatusCode());
