@@ -46,6 +46,13 @@ public class StepsCliente {
         RestUtils.post(cliente.getCliente(), endpoint);
     }
 
+    @Dado("eu tenha os seguintes campos do cliente nome {string} email {string} salario {string} preenchidos")
+    public void eu_tenha_os_seguintes_campos_do_cliente_nome_email_salario_preenchidos(String nome, String email, String salario) {
+        cliente.setCliente("nome", nome);
+        cliente.setCliente("email", email);
+        cliente.setCliente("salario", salario);
+    }
+
     @Quando("eu fizer a requisicao Del para delecao de cliente")
     public void eu_fizer_a_requisicao_del_para_delecao_de_cliente() {
        RestUtils.delete(endpoint+idCliente);
@@ -61,8 +68,8 @@ public class StepsCliente {
         RestUtils.post(cliente.getCliente(), endpoint);
     }
 
-    @Quando("eu fizer a requisicao PUT para delecao de cliente")
-    public void eu_fizer_a_requisicao_put_para_delecao_de_cliente() {
+    @Quando("eu fizer a requisicao PUT para atualizar o cliente")
+    public void eu_fizer_a_requisicao_put_para_atualizar_o_cliente() {
         RestUtils.put(cliente.getCliente(), endpoint);
     }
 
@@ -77,6 +84,12 @@ public class StepsCliente {
     @Quando("eu fizer a requisicao Get para listagem de um cliente")
     public void eu_fizer_a_requisicao_get_para_listagem_de_um_cliente() {
         RestUtils.get(endpoint+idCliente);
+    }
+
+    @Entao("devera retornar o campo {string} que deu erro e a mensagem {string}")
+    public void devera_retornar_o_campo_que_deu_erro_e_a_mensagem(String campo, String mensagem) {
+        Assert.assertEquals(mensagem, RestUtils.response.path("errors[0].defaultMessage").toString());
+        Assert.assertEquals(campo, RestUtils.response.path("errors[0].field").toString());
     }
 
     @Entao("devera retornar esse cliente cadastrado")
@@ -129,6 +142,11 @@ public class StepsCliente {
         rs.next();
         assert (Integer.parseInt(rs.getString("contagem")) == 0);
         connDataBase.Desconectar();
+    }
+
+    @Entao("devera retornar os campos {string} com o valor {string}")
+    public void devera_retornar_os_campos_com_o_valor(String campo, String valor) {
+        Assert.assertEquals(valor, RestUtils.response.path(campo).toString());
     }
 
 
