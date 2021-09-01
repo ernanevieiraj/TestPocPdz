@@ -29,7 +29,7 @@ public class ConnDataBase {
 
         endereco = "jdbc:postgresql://localhost:5432/PocPdz";
         usuario = "postgres";
-        senha = "juninho22";
+        senha = "poc123";
 
         try {
             /** Pasando o nome do Driver do PostgreSQL */

@@ -109,3 +109,24 @@
       Exemplos:
         | nome     | email                     | salario | campo    | mensagem                            |
         | Nacho    | NachodaMassahotmail.com   | 4000.02 | email    | Email não esta no formato correto.  |
+
+    @RequisicaoPutTodosCamposEmBranco @FluxoAlternativo
+    Cenario: Validar requisicao PUT com todos os campos em branco
+      E eu fizer a requisicao PUT para atualizar o cliente
+      Entao devera retornar o status code "400"
+      E devera retornar os campos "message" com o valor "Validation failed for object='cliente'. Error count: 3"
+
+    @RequisicaoPutSemCampos @FluxoAlternativo
+    Esquema do Cenário: Validar requisicao PUT com algum campo em branco
+      Dado que eu tenha clientes cadastrados
+      E guardar o valor do id do cliente
+      E eu alterar os dados do cliente nome "<nome>" email "<email>" salario "<salario>"
+      Quando eu fizer a requisicao PUT para atualizar o cliente
+      Entao devera retornar o status code "400"
+      E devera retornar o campo "<campo>" que deu erro e a mensagem "<mensagem>"
+
+      Exemplos:
+        | nome     | email                     | salario | campo   | mensagem                          |
+        |          | NachodaMassa@hotmail.com  | 4000.02 | nome    | Nome não deve estar em branco.    |
+        | Hulk     |                           | 9800.15 | email   | Email não deve estar em branco.   |
+        | D. Costa | CostaodaMassa@hotmail.com |         | salario | Salario não deve estar em branco. |

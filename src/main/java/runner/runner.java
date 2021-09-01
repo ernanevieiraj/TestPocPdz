@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(features = "src/test/java/resources/features/Cliente.feature",
-                tags="@RequisicaoPostTodosCamposEmBranco",
+                tags="@FluxoCompleto",
                 glue = {"Steps"}, monochrome = true, dryRun = false)
 public class runner {
 
